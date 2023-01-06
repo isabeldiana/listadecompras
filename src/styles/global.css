@@ -1,0 +1,17 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body{
+  background-color: #469536;
+}
+body, input, button {
+  font-size: 10px;
+  font-family: "Roboto", sans-serif;
+
+
+
+  --webkit-font-smoothing: antialiased;
+}
