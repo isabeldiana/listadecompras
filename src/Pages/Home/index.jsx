@@ -1,64 +1,65 @@
-import React, { useState } from "react";
-import img from '../../assents/images.png'
+import React, { useEffect, useState } from "react";
+import api from "../../../services/api";
+import img from "../../assets/images.png";
 
 import "./styles.css";
 
 export function Home() {
-  const [produtName, setProdutName] = useState("");
-  const [produts, setProduts] = useState([]);
-  const [produtValue, setProdutValue] = useState();
-  
-function handleAddProdut(){
-  const newProdut = {
-    name: produtName,
-    value: produtValue
+  const [productName, setProductName] = useState("");
+  const [products, setProducts] = useState([]);
+  const [amount, setAmount] = useState(1);
+
+  useEffect(() => {
+    api.get("products").then(({ data }) => {
+      setProducts(data);
+    });
+  }, [products]);
+
+  const createProduct = (e) => {
+    e.preventDefault();
+    api.post("products", {
+      products: productName,
+      amount: amount,
+    });
   };
-  
-  setProduts((prevState) => [...prevState, newProdut]);
-}
-
-
 
   return (
-    <div className='container'>
+    <div className="container">
       <header>
-      <h1>Lista de Compra</h1>
-
+        <h1>Lista de Compra</h1>
       </header>
       <img src={img} alt="" />
 
-  <div className="container-form">
-  <input value={produtName}
-        type="text"
-        placeholder="Digite o produto..."
-        onChange={(e) => setProdutName(e.target.value)}
-      />
-     
-    <input value={produtValue}
-        type="number"
-        placeholder="Qtd..."
-        onChange={(e) => setProdutValue(e.target.value)}
-      />
-     
-   <button type="button" onClick={handleAddProdut}>
-    +
-    </button>
-     
-  </div>
+      <form className="container-form" onSubmit={createProduct}>
+        <input
+          value={productName}
+          type="text"
+          placeholder="Digite o produto..."
+          onChange={(e) => setProductName(e.target.value)}
+        />
 
-  <table>
-    <tr>
-      <th>Produto</th>
-      <th>Qtd</th>
-    </tr>
-      {produts.map((produt) => (
+        <input
+          value={amount}
+          type="number"
+          placeholder="Qtd..."
+          onChange={(e) => setAmount(e.target.value)}
+        />
+
+        <button type="submit">+</button>
+      </form>
+
+      <table>
         <tr>
-          <td>{produt.name}</td>
-          <td>{produt.value}</td>
+          <th>Produto</th>
+          <th>Qtd</th>
         </tr>
-      ))}
-  </table>        
-   </div>
+        {products.map((product) => (
+          <tr key={product.id}>
+            <td>{product.products}</td>
+            <td>{product.amount}</td>
+          </tr>
+        ))}
+      </table>
+    </div>
   );
 }
-
