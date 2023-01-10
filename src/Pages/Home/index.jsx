@@ -7,22 +7,27 @@ import "./styles.css";
 export function Home() {
   const [productName, setProductName] = useState("");
   const [products, setProducts] = useState([]);
+  const [createProducts, setCreateProducts] = useState();
   const [amount, setAmount] = useState(1);
 
   useEffect(() => {
     api.get("products").then(({ data }) => {
       setProducts(data);
     });
-  }, [products]);
+  }, [createProducts]);
 
-  const createProduct = (e) => {
+  async function createProduct(e) {
     e.preventDefault();
-    api.post("products", {
-      products: productName,
-      amount: amount,
-    });
-  };
-
+    await api
+      .post("products", {
+        products: productName,
+        amount: amount,
+      })
+      .then(({ data }) => {
+        setCreateProducts(data);
+      });
+  }
+  console.log(createProducts);
   return (
     <div className="container">
       <header>
