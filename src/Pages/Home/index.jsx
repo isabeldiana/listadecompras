@@ -3,8 +3,7 @@ import api from "../../../services/api";
 import img from "../../assets/images.png";
 import { RiDeleteBin6Line } from "react-icons/ri";
 
-import "./styles.css";
-
+import { Container } from "./styles";
 export function Home() {
   const [productName, setProductName] = useState("");
   const [products, setProducts] = useState([]);
@@ -39,7 +38,7 @@ export function Home() {
   };
 
   return (
-    <div className="container">
+    <Container>
       <header>
         <h1>Lista de Compra</h1>
       </header>
@@ -67,6 +66,7 @@ export function Home() {
         <tr>
           <th>Produto</th>
           <th>Qtd</th>
+          <th></th>
         </tr>
         {products.map((product) => (
           <tr key={product.id}>
@@ -77,12 +77,12 @@ export function Home() {
                 className="delete"
                 onClick={() => deleteProduct(product.id)}
               >
-                <RiDeleteBin6Line />
+                <RiDeleteBin6Line size={20} color="red" />
               </button>
             </td>
           </tr>
         ))}
       </table>
-    </div>
+    </Container>
   );
 }
