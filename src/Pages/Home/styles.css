@@ -94,3 +94,8 @@ th:first-child {
   background-color: #04aa6d;
   color: white;
 }
+
+.delete{
+  background: blue !important; 
+  height: 10px;
+}

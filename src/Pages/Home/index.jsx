@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import api from "../../../services/api";
 import img from "../../assets/images.png";
+import { RiDeleteBin6Line } from "react-icons/ri";
 
 import "./styles.css";
 
@@ -27,7 +28,16 @@ export function Home() {
         setCreateProducts(data);
       });
   }
-  console.log(createProducts);
+
+  const deleteProduct = (id) => {
+    api.delete(`products/${id}`);
+    setProducts(
+      products.filter((product) => {
+        return product.id !== id;
+      })
+    );
+  };
+
   return (
     <div className="container">
       <header>
@@ -62,6 +72,14 @@ export function Home() {
           <tr key={product.id}>
             <td>{product.products}</td>
             <td>{product.amount}</td>
+            <td>
+              <button
+                className="delete"
+                onClick={() => deleteProduct(product.id)}
+              >
+                <RiDeleteBin6Line />
+              </button>
+            </td>
           </tr>
         ))}
       </table>
