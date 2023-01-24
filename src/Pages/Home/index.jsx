@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import api from "../../../services/api";
-import img from "../../assets/images.png";
 import { RiDeleteBin6Line } from "react-icons/ri";
 
 import { Container } from "./styles";
+import ModalEdit from "../../components/ModalEdit";
 export function Home() {
   const [productName, setProductName] = useState("");
   const [products, setProducts] = useState([]);
@@ -37,12 +37,20 @@ export function Home() {
     );
   };
 
+  const updateProduct = (id) => {
+    api.put(`products/${id}`);
+    setProducts(
+      products.filter((product) => {
+        return product.id !== id;
+      })
+    );
+  };
+
   return (
     <Container>
       <header>
         <h1>Lista de Compra</h1>
       </header>
-      <img src={img} alt="" />
 
       <form className="container-form" onSubmit={createProduct}>
         <input
@@ -61,28 +69,33 @@ export function Home() {
 
         <button type="submit">+</button>
       </form>
-
-      <table>
-        <tr>
-          <th>Produto</th>
-          <th>Qtd</th>
-          <th></th>
-        </tr>
-        {products.map((product) => (
-          <tr key={product.id}>
-            <td>{product.products}</td>
-            <td>{product.amount}</td>
-            <td>
-              <button
-                className="delete"
-                onClick={() => deleteProduct(product.id)}
-              >
-                <RiDeleteBin6Line size={20} color="red" />
-              </button>
-            </td>
+      <div className="table-scroll">
+        <table>
+          <tr>
+            <th>Produto</th>
+            <th>Qtd</th>
+            <th></th>
+            <th></th>
           </tr>
-        ))}
-      </table>
+          {products.map((product) => (
+            <tr key={product.id}>
+              <td>{product.products}</td>
+              <td>{product.amount}</td>
+              <td>
+                <button
+                  className="delete"
+                  onClick={() => deleteProduct(product.id)}
+                >
+                  <RiDeleteBin6Line size={20} color="red" />
+                </button>
+              </td>
+              <td>
+                <ModalEdit />
+              </td>
+            </tr>
+          ))}
+        </table>
+      </div>
     </Container>
   );
 }

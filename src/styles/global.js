@@ -1,4 +1,6 @@
 import {createGlobalStyle} from "styled-components";
+import background from "../assets/hearder.jpg";
+
 
 export default createGlobalStyle`
 * {
@@ -8,7 +10,12 @@ export default createGlobalStyle`
 }
 
 body {
-  background-color: #469536;
+  background-image: url(${background});
+  background-repeat: no-repeat;
+  background-size: 100%;
+  background-position: bottom;
+  height: 100vh;
+
 }
 
 `

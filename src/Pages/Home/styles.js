@@ -12,6 +12,7 @@ export const Container = styled("div")`
     top: 200px;
   }
   h1 {
+    color: #d1fac9;
     display: flex;
     align-items: center;
     margin: 40px 0;
@@ -66,15 +67,16 @@ export const Container = styled("div")`
   table {
     font-family: Arial, Helvetica, sans-serif;
     border-collapse: collapse;
+    height: 400px;
   }
 
   td,
   th {
-    border: 1px solid rgb(3, 188, 235);
+    border: 1px solid #ddd;
     padding: 8px;
   }
 
-  tr{
+  tr {
     background-color: #f2f2f2;
   }
 
@@ -96,7 +98,30 @@ export const Container = styled("div")`
   }
 
   td .delete {
-   padding: 0;
-   background-color: transparent;
+    padding: 0;
+    background-color: transparent;
+  }
+
+  .table-scroll {
+    overflow-y: scroll;
+    height: 400px;
+
+    /* width */
+    &::-webkit-scrollbar {
+      width: 5px;
+      height: 5px;
+    }
+
+    /* Track */
+    &::-webkit-scrollbar-track {
+      box-shadow: inset 0 0 5px #19212b;
+      border-radius: 10px;
+    }
+
+    /* Handle */
+    &::-webkit-scrollbar-thumb {
+      background-color: #323941;
+      border-radius: 4px;
+    }
   }
 `;
