@@ -12,7 +12,7 @@ export const Container = styled("div")`
     top: 200px;
   }
   h1 {
-    color: #d1fac9;
+    color:  #04aa6d;
     display: flex;
     align-items: center;
     margin: 40px 0;
@@ -31,6 +31,15 @@ export const Container = styled("div")`
   input[type="number"] {
     width: 70px;
   }
+  input[type=number]::-webkit-inner-spin-button { 
+    -webkit-appearance: none;
+    
+}
+input[type=number] { 
+   -moz-appearance: textfield;
+   appearance: textfield;
+
+}
 
   button {
     width: 10%;
@@ -67,17 +76,20 @@ export const Container = styled("div")`
   table {
     font-family: Arial, Helvetica, sans-serif;
     border-collapse: collapse;
-    height: 400px;
+  
+
   }
 
   td,
   th {
     border: 1px solid #ddd;
     padding: 8px;
+   
   }
 
   tr {
     background-color: #f2f2f2;
+    
   }
 
   tr:hover {
@@ -104,7 +116,8 @@ export const Container = styled("div")`
 
   .table-scroll {
     overflow-y: scroll;
-    height: 400px;
+    max-height: 400px;
+  
 
     /* width */
     &::-webkit-scrollbar {

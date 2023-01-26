@@ -38,7 +38,10 @@ export function Home() {
   };
 
   const updateProduct = (id) => {
-    api.put(`products/${id}`);
+    api.put(`products/${id}`, {
+      products: productName,
+      amount: amount,
+    });
     setProducts(
       products.filter((product) => {
         return product.id !== id;
@@ -57,6 +60,7 @@ export function Home() {
           value={productName}
           type="text"
           placeholder="Digite o produto..."
+          required="required"
           onChange={(e) => setProductName(e.target.value)}
         />
 
@@ -64,6 +68,7 @@ export function Home() {
           value={amount}
           type="number"
           placeholder="Qtd..."
+          required="required"
           onChange={(e) => setAmount(e.target.value)}
         />
 
@@ -74,8 +79,7 @@ export function Home() {
           <tr>
             <th>Produto</th>
             <th>Qtd</th>
-            <th></th>
-            <th></th>
+            <th colspan="2"></th>
           </tr>
           {products.map((product) => (
             <tr key={product.id}>

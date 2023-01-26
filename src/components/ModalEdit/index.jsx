@@ -1,13 +1,22 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Modal from "@mui/material/Modal";
 import { Box, Container } from "./styles";
 import { FiEdit } from "react-icons/fi";
 import { AiOutlineCloseCircle } from "react-icons/ai";
+import api from "../../../services/api";
 
 export default function ModalEdit() {
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
+  const [products, setProducts] = useState();
+
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+
+  useEffect(() => {
+    api.get(`products/78}`).then(({ data }) => {
+      setProducts(data);
+    });
+  }, [handleOpen]);
 
   return (
     <Container>
@@ -19,7 +28,8 @@ export default function ModalEdit() {
         <Box>
           <form>
             <AiOutlineCloseCircle onClick={handleClose} />
-            <h1>Editar produto</h1>
+            <h1>Editar produto {products?.products}</h1>
+
             <input type="text" placeholder="Produto" />
 
             <input type="number" placeholder="Quantidade" />
